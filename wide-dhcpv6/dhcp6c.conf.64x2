@@ -1,0 +1,29 @@
+# WAN interface
+interface wan { 
+	send ia-na 1; # NA for wan
+	send ia-pd 2; # PD for lan
+	send ia-pd 3; # PD for dmz
+	send rapid-commit; # don't wait for ra
+};
+
+id-assoc na 1 {
+	# id-assoc for wan
+};
+
+id-assoc pd 2 {
+	prefix ::/64 infinity;
+	prefix-interface lan { 
+		sla-id 0; 
+		sla-len 0; 
+		ifid 1; 
+	};
+};
+
+id-assoc pd 3 {
+	prefix ::/64 infinity;
+	prefix-interface dmz { 
+		sla-id 0; 
+		sla-len 0; 
+		ifid 1; 
+	};
+};

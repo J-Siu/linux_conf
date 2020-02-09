@@ -1,0 +1,32 @@
+# WAN interface
+interface wan { 
+	send ia-na 1; # NA for wan
+	send ia-pd 1; # PD for lan,dmz,wifi
+	send rapid-commit;
+};
+
+id-assoc na 1 {
+	# id-assoc for wan
+};
+
+id-assoc pd 1 {
+	prefix ::/56 infinity;
+
+	prefix-interface lan { 
+		sla-id 1; 
+		sla-len 8; 
+		ifid 1; 
+	};
+
+	prefix-interface dmz { 
+		sla-id 2; 
+		sla-len 8; 
+		ifid 1; 
+	};
+
+	prefix-interface wifi { 
+		sla-id 3; 
+		sla-len 8; 
+		ifid 1; 
+	};
+};
